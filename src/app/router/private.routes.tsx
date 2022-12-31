@@ -6,9 +6,8 @@ import DashboardLayout from "../pages/dashboard/dashboard";
 const PrivateRoutes = () => {
     return (
         <Routes>
-            <Route element={<DashboardLayout/>}></Route>
+            <Route path="/" element={<DashboardLayout/>}/>
             <Route path="/auth" element={<AuthLayout />}>
-                <Route path="login" element={<LoginPage />} />
             </Route>
       </Routes>
     )

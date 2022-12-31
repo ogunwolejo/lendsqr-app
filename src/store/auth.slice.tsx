@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 interface SLICENATURE {
-    currentUser:null | {email:string; password:string}
+    currentUser:null | any;
 }
 
 const _:SLICENATURE = {
