@@ -1,0 +1,84 @@
+$font-family: "Avenir";
+
+input {
+  outline: none !important;
+  height: 100%;
+  width: 100%;
+  background: #ffffff !important;
+  border: none;
+  color: rgba(84, 95, 125, 1) !important;
+  font-family: $font-family !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: 14px;
+}
+
+input::placeholder {
+  font-family: $font-family !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: 14px;
+  color: rgba(84, 95, 125, 0.6) !important;
+}
+
+.input__wrapper,
+.input__wrapper_password2 {
+  border: 2px solid rgba(84, 95, 125, 0.15);
+  border-radius: 5px;
+}
+
+.input__wrapper_password2 {
+  position: relative;
+}
+
+.text-btn-wrapper {
+  border-left: none !important;
+  //height: 100%;
+  background: none !important;
+  position: absolute;
+  left: 88%;
+  height: fit-content;
+}
+
+@media screen and (max-width: 600px) {
+  .text-btn-wrapper {
+    left: 84%;
+  }
+
+  input, input::placeholder {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .text-btn-wrapper {
+    left: 86%;
+  }
+}
+
+.text-btn {
+  background-color: transparent !important;
+  border: none;
+  color: rgba(57, 205, 204, 1);
+  font-family: $font-family;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+@media screen and (min-width: 601px) and (max-width: 992px) {
+  .text-btn {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .text-btn {
+    font-size: 8px;
+  }
+}

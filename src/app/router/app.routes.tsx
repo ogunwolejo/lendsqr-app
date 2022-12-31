@@ -1,12 +1,23 @@
-import App from '../../App';
-import {Route, Routes, BrowserRouter} from 'react-router-dom'
+import React from "react";
+import App from "../../App";
+import { Route, Routes } from "react-router-dom";
+import AuthLayout from "../modules/auth/auth.layout";
+import LoginPage from "../modules/auth/component/login";
 
-const AppRoute = () => {
-    <BrowserRouter basename="">
-        <Routes>
-            <Route element={<App/>}/>
-        </Routes>
-    </BrowserRouter>    
-}
+const Router: React.FC = () => {
+  return (
+    <>
+      {/*<Routes>
+      <Route path="/auth" element={<AuthLayout />} />
+      <Route path="/login" element={<LoginPage />} />
+  </Routes>*/}
+      <Routes>
+        <Route path="/auth" element={<AuthLayout />}>
+            <Route path="login" element={<LoginPage />} />
+          </Route>
+      </Routes>
+    </>
+  );
+};
 
-export default AppRoute;
+export { Router };

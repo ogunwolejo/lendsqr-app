@@ -1,3 +1,102 @@
+$full-height: 100vh;
+
 .auth_wrapper {
-    
+  height: $full-height;
+
+  &__left_side {
+    height: $full-height;
+    width: 50%;
+
+    &_logo {
+      width: 24.75px;
+      height: 25px;
+    }
+
+    &_bottom {
+      margin-left: 10%;
+      width: 80%;
+    }
+  }
+
+  &__right_side {
+    height: $full-height;
+    width: 50%;
+  }
+
+  @media screen and (max-width: 600px) {
+    &__left_side {
+      display: none !important;
+    }
+    &__right_side {
+      height: $full-height;
+      width: 100%;
+    }
+  }
+
+  .left_image_on_auth {
+    height: 100%;
+    width: 600px;
+    background-blend-mode: hue;
+  }
+}
+
+// my form css query
+@media screen and (max-width: 600px) {
+  form {
+    width: 100% !important;
+    padding: 0 !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
+  .forgot-password-link {
+    font-size: 9px !important;
+  }
+}
+
+.forgot-password-link {
+  font-family: "Avenir";
+  font-style: normal;
+  font-weight: 600 !important;
+  font-size: 12px;
+  //line-height: 16px;
+  text-align: right;
+  letter-spacing: 0.1em;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  color: rgba(57, 205, 204, 1) !important;
+}
+
+.login-btn {
+  background: #39cdcc !important;
+  border-radius: 8px !important;
+  font-family: "Avenir" !important;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase !important;
+  color: #ffffff;
+}
+
+.form-title {
+  font-family: "Avenir" !important;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 55px;
+  letter-spacing: -0.04em;
+  color: #213f7d;
+}
+
+.form-subtitle {
+  font-family: "Avenir" !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
+  color: #545f7d;
 }

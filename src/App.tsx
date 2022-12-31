@@ -1,12 +1,9 @@
-import React from 'react';
-import AuthLayout from './app/modules/auth/auth.layout';
+import {Router} from "./app/router/app.routes";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <AuthLayout/>
-    </div>
+   <Router />
   );
-}
+};
 
 export default App;
