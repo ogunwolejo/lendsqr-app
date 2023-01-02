@@ -21,7 +21,7 @@ const DashboardHeader = () => {
         />
       </div>
       <div className="dashboard-header-wrapper-search-wrapper ">
-        <div className="dashboard-header-wrapper-search-wrapper-input-wrapper d-md-flex flex-row justify-content-start align-items-center p-0">
+        <div className="dashboard-header-wrapper-search-wrapper-input-wrapper d-flex flex-row justify-content-start align-items-center p-0">
           <input className="ps-2" placeholder="Search for anything" />
           <i className="d-flex flex-row justify-content-center align-items-center">
             <BsSearch color="#FFFFFF" height={"14px"} width="14px" />

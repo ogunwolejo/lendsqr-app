@@ -100,7 +100,7 @@ input::placeholder {
   width: 100%;
 
   @media screen and (max-width: 600px) {
-    height: 80px;
+    height: 50px;
   }
 
   &-logo {
@@ -121,9 +121,14 @@ input::placeholder {
     width: 25%;
     height: 40px !important;
 
-    @media screen and (min-width: 601px) and (max-width: 1024px) {
+    @media screen and (min-width: 601px) and (max-width: 750px) {
       width: 40%;
     }
+
+    @media screen and (min-width: 751px) and (max-width: 1024px) {
+      width: 40%;
+    }
+
     @media screen and (max-width: 600px) {
       display: none !important;
     }
@@ -186,8 +191,12 @@ input::placeholder {
     }
   }
 
-  @media screen and (min-width: 601px) and (max-width: 1024px) {
+  @media screen and (min-width: 1025px) and (max-width: 1400px) {
     width: 32% !important;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 1024px) {
+    width: 30% !important;
   }
 
   .link,
@@ -209,6 +218,10 @@ input::placeholder {
     border-radius: 50% !important;
     height: 50px;
     width: 50px;
+    @media screen and (max-width: 600px) {
+      height: 30px !important;
+      width: 30px !important;
+    }
   }
 
   .profile-name {
@@ -240,4 +253,74 @@ input::placeholder {
 
   @media screen and (max-width: 600px) {
   }
+}
+
+/**********************************************************************************************************************************************************************
+  sidebar-menu 
+*********************************************************************************************************************************/
+
+@mixin font-sizes {
+  @media screen and (max-width: 600px) {
+    font-size: 8px;
+  }
+
+  @media screen and (min-width: 882px) and (max-width: 1024px) {
+    font-size: 12px;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 881px) {
+    font-size: 10px !important;
+  }
+}
+
+@mixin image-size {
+  @media screen and (min-width: 601px) and (max-width: 881px) {
+    height: 10px !important;
+    width: 10px !important;
+  }
+
+  @media screen and (min-width: 882px) and (max-width: 1024px) {
+    height: 10px !important;
+    width: 10px !important;
+  }
+
+  @media screen and (min-width: 1025px) and (max-width: 1400px) {
+    height: 12px !important;
+    width: 12px !important;
+  }
+}
+
+@mixin hide-text {
+    @media screen and (max-width:600px) {
+        display: none !important;
+    }
+ }
+
+.side-bar-menu-title-active {
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #213f7d;
+  text-transform: capitalize;
+  @include font-sizes();
+  @include hide-text();
+}
+
+.side-bar-menu-title-inactive {
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #213f7d;
+  opacity: 0.4;
+  text-transform: capitalize;
+  @include font-sizes();
+  @include hide-text();
+}
+
+.side-bar-menu-img {
+  height: 16px;
+  width: 16px;
+  @include image-size();
 }

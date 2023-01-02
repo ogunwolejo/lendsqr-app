@@ -4,3 +4,8 @@ export interface AUTHSTATE {
     showPassword:boolean;
 }
 
+export interface SIDE_BAR_MENU {
+    image:string;
+    title:string;
+    to:string;
+}
