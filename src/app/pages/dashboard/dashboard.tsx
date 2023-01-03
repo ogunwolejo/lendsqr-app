@@ -36,7 +36,7 @@ const DashboardLayout: React.FC = () => {
   return (
     <>
       <DashboardHeader />
-      <div className="d-flex flex-row  justify-content-start body-wrapper">
+      <div className="d-flex flex-row  justify-content-start body-wrapper ">
         <div className="side_bar card border border-0 py-2">
           <SwitchOrganization />
           <DashboardContent />
@@ -112,7 +112,7 @@ const DashboardLayout: React.FC = () => {
 export default DashboardLayout;
 
 const SwitchOrganization = () => (
-  <div className="p-2 mx-lg-4 mx-md-1 mt-md-4 d-flex flex-row justify-content-between align-items-center brief-case">
+  <div className="p-2 mx-lg-4 mx-md-1 mt-md-4 d-flex flex-row justify-content-start gap-1 gap-md-2 align-items-center brief-case">
     <img src={brieftCase} alt="briefcase" className="brief-case-img" />
     <div className="brief-case-title">Switch Organization</div>
     <BsChevronDown color="#213F7D" className="brief-case-icon" />

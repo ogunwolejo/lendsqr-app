@@ -1,0 +1,78 @@
+@mixin card-responsive-font-size {
+  @media screen and (max-width: 600px) {
+    font-size: 10px;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 1024px) {
+    @media screen and (max-width: 600px) {
+      font-size: 12px;
+    }
+  }
+}
+
+@mixin card-title-font-size {
+  @media screen and (max-width: 600px) {
+    font-size: 15px;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 1024px) {
+    @media screen and (max-width: 600px) {
+      font-size: 20px;
+    }
+  }
+}
+
+.card {
+  background: #ffffff !important;
+  border: 1px solid rgba(33, 63, 125, 0.06) !important;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04) !important;
+  border-radius: 4px !important;
+  width: 240px;
+  height: 160px;
+
+  @media screen and (max-width: 600px) {
+    width: calc(100vw / 4) !important;
+    height: auto;
+    margin-inline: 0.5px;
+  }
+}
+
+.card-image-wrapper {
+  height: 40px;
+  width: 40px;
+  border-radius: 50% !important;
+
+  @media screen and (max-width:600px) {
+    height:25px;
+    width:25px;
+  }
+
+  &-image {
+    @media screen and (max-width:600px) {
+        height:13px;
+        width:18px;
+    }
+  }
+}
+
+
+
+.card-text {
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #545f7d !important;
+  @include card-responsive-font-size();
+}
+
+.card-title {
+  color: rgba(33, 63, 125, 1) !important;
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  text-transform: uppercase;
+  @include card-title-font-size();
+}

@@ -74,7 +74,7 @@ $full-height: 100vh;
   border-radius: 8px !important;
   font-family: "Avenir" !important;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 600 !important;
   font-size: 14px;
   text-align: center;
   letter-spacing: 0.1em;
@@ -85,7 +85,7 @@ $full-height: 100vh;
 .form-title {
   font-family: "Avenir" !important;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 700 !important;
   font-size: 40px;
   line-height: 55px;
   letter-spacing: -0.04em;
@@ -95,7 +95,7 @@ $full-height: 100vh;
 .form-subtitle {
   font-family: "Avenir" !important;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 400 !important;
   font-size: 20px;
   line-height: 27px;
   color: #545f7d;
