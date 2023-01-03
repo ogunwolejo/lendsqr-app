@@ -43,57 +43,73 @@ const UserPage: React.FC = () => {
         />
       </div>
       <div className="mt-2 mt-md-4 card-table col-12">
-        <div className="card-body px-3 py-3">
-          <div className="table-responsive-xs table-responsive-sm table-responsive-md">
+        <div className="card-body px-2 py-3">
+          <div className="table-responsive">
             <table className="table">
-              <thead className="mt-1 mb-3">
+              <thead className="mt-1 mb-3 ">
                 <tr>
-                  <th className="">
-                    <div>organization</div>
-                    <div>
-                      <CgSortAz color="#000" height="16px" width="16px" />
+                  <th scope="col" className="table-col">
+                    <div className="table-head-organization">
+                      <div className="table-head-organization-name me-1">
+                        Organization
+                      </div>
+                      <CgSortAz color="#000" className="table-icon" />
                     </div>
                   </th>
-                  <th scope="col" className="">
-                    <div>
-                      username{" "}
-                      <span>
-                        <CgSortAz color="#000" height="16px" width="16px" />
-                      </span>
+                  <th scope="col" className="table-col-2">
+                    <div className="table-head-username">
+                      <div className="table-head-username-name me-1">
+                        Username
+                      </div>
+                      <CgSortAz color="#000" className="table-icon" />
                     </div>
                   </th>
-                  <th scope="col" className=" w-25">
-                    <div>Email</div>
-                    <div>
-                      <CgSortAz color="#000" height="16px" width="16px" />
+                  <th scope="col" className="table-col-3">
+                    <div className="table-head-email">
+                      <div className="table-head-email-name me-1">Email</div>
+                      <CgSortAz
+                        color="#000"
+                        className="table-head-email-icon-icon"
+                      />
                     </div>
                   </th>
-                  <th scope="col" className=" w-25">
-                    <div>Phone number</div>
-                    <div>
-                      <CgSortAz color="#000" height="16px" width="16px" />
+                  <th scope="col" className="table-col-4">
+                    <div className="table-head-phone">
+                      <div className="table-head-phone-name me-1">
+                        Phone number
+                      </div>
+                      <CgSortAz color="#000" className="table-icon" />
                     </div>
                   </th>
-                  <th scope="col" className=" w-25">
-                    <div>date joined</div>
-                    <div>
-                      <CgSortAz color="#000" height="16px" width="16px" />
+                  <th scope="col" className="table-col-5">
+                    <div className="table-head-date">
+                      <div className="table-head-date-name me-1">
+                        Date Joined
+                      </div>
+                      <CgSortAz color="#000" className="table-icon" />
                     </div>
                   </th>
-                  <th scope="col" className=" w-25">
-                    <div>status</div>
-                    <div>
-                      <CgSortAz color="#000" height="16px" width="16px" />
+                  <th scope="col" className="table-col-6">
+                    <div className="table-head-status">
+                      <div className="table-head-status-name me-1">Status</div>
+                      <CgSortAz color="#000" className="table-icon" />
                     </div>
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
+                  <td className=" py-xs-2 py-md-4">Lendsqr</td>
+                  <td className="py-xs-2 py-md-4">Debby Ogana</td>
+                  <td className="py-xs-2 py-md-4">adedeji@lendsqr.com</td>
+                  <td className="py-xs-2 py-md-4">08078903721</td>
+                  <td className="py-xs-2 py-md-4">May 15, 2020 10:00 AM</td>
+                  <td className="py-xs-2 py-md-4 ">
+                    <div className="d-flex flex-row justify-content-start gap-3 align-items-center">
+                      <StatusWrapper status="pending" />
+                      <BsThreeDotsVertical color="#545F7D" />
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -105,3 +121,31 @@ const UserPage: React.FC = () => {
 };
 
 export default UserPage;
+
+const StatusWrapper: React.FC<{ status: string }> = ({ status }) => {
+  let backgroundColor =
+    status.toLowerCase() === "active"
+      ? "rgba(57, 205, 98, .06)"
+      : status.toLowerCase() === "inactive"
+      ? "rgba(84, 95, 125, .06)"
+      : status.toLowerCase() === "pending"
+      ? "rgba(233, 178, 0, .1)"
+      : "rgba(228, 3, 59, .1)";
+
+  let color =
+    status.toLowerCase() === "active"
+      ? "#39CD62"
+      : status.toLowerCase() === "inactive"
+      ? "#545F7D"
+      : status.toLowerCase() === "pending"
+      ? "#E9B200"
+      : "#E4033B";
+  return (
+    <div
+      className="status-wrapper px-1 py-1 d-flex flex-row align-items-center justify-content-center"
+      style={{ color: color, backgroundColor }}
+    >
+      {status}
+    </div>
+  );
+};

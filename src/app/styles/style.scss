@@ -26,7 +26,7 @@
 
 // the right sidebar - which holds the content
 .side_bar_content {
-  height:inherit;
+  //height: 150vh;
   width: 82% !important;
   background-color: #e5e5e5 !important;
   @media screen and (max-width: 600px) {
@@ -165,7 +165,7 @@ li .nav-link-inactive {
   font-style: normal;
   font-weight: 500 !important;
   font-size: 24px;
-  color:#213F7D;
+  color: #213f7d;
   text-transform: capitalize;
 
   @media screen and (max-width: 600px) {
@@ -177,10 +177,9 @@ li .nav-link-inactive {
   }
 
   @media screen and (min-width: 601px) and (max-width: 881px) {
-    font-size: 20px ;
+    font-size: 20px;
   }
 }
-
 
 // card wrapper for the table
 .card-table {
@@ -189,9 +188,164 @@ li .nav-link-inactive {
   box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04) !important;
   border-radius: 4px !important;
   height: auto;
-  width:100%;
+  width: 100%;
 }
 
-th {
-  width:100px !important;
+
+@mixin table-font-size {
+  @media screen and (max-width:600px) {
+    font-size: 10px;
+  }
+}
+
+.table-icon {
+  width: 16px;
+}
+
+.table-col {
+  width: 116px;
+}
+
+.table-head-organization {
+  width: 116px;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  &-name {
+    width: 90px;
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #545f7d;
+    @include table-font-size();
+  }
+}
+
+.table-col-2 {
+  width: 94px !important;
+}
+
+.table-head-username {
+  width: 94px;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  &-name {
+    width: 68px;
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #545f7d;
+     @include table-font-size();
+  }
+}
+
+.table-col-3 {
+  width: 64px;
+}
+
+.table-head-email {
+  width: 64px;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  &-name {
+    width: 38px;
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #545f7d;
+     @include table-font-size();
+  }
+}
+
+.table-col-4 {
+  width: 124px;
+}
+
+.table-head-phone {
+  width: 130px;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  &-name {
+    width: 130px;
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #545f7d;
+    padding: 0 !important;
+     @include table-font-size();
+  }
+}
+
+.table-col-5 {
+  width: 105px;
+}
+
+.table-head-date {
+  width: 105px;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  &-name {
+    width: 95px;
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #545f7d;
+     @include table-font-size();
+  }
+}
+
+.table-col-6 {
+  width: 71px;
+}
+
+.table-head-status {
+  width: 71px;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  &-name {
+    width: 45px;
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #545f7d;
+     @include table-font-size();
+  }
+}
+
+td {
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: #545f7d;
+   @include table-font-size();
+}
+
+.status-wrapper {
+  border-radius: 100px !important;
+  width:100px;
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  text-transform: capitalize;
+   @include table-font-size();
 }

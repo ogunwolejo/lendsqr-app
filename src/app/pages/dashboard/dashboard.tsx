@@ -37,7 +37,7 @@ const DashboardLayout: React.FC = () => {
     <>
       <DashboardHeader />
       <div className="d-flex flex-row  justify-content-start body-wrapper ">
-        <div className="side_bar card border border-0 py-2">
+        <div className="side_bar card border border-0 py-2 bg-white">
           <SwitchOrganization />
           <DashboardContent />
           <div className="mt-md-4 mt-lg-4 mt-1">
