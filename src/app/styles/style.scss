@@ -191,9 +191,8 @@ li .nav-link-inactive {
   width: 100%;
 }
 
-
 @mixin table-font-size {
-  @media screen and (max-width:600px) {
+  @media screen and (max-width: 600px) {
     font-size: 10px;
   }
 }
@@ -240,7 +239,7 @@ li .nav-link-inactive {
     font-size: 12px;
     text-transform: uppercase;
     color: #545f7d;
-     @include table-font-size();
+    @include table-font-size();
   }
 }
 
@@ -261,7 +260,7 @@ li .nav-link-inactive {
     font-size: 12px;
     text-transform: uppercase;
     color: #545f7d;
-     @include table-font-size();
+    @include table-font-size();
   }
 }
 
@@ -283,7 +282,7 @@ li .nav-link-inactive {
     text-transform: uppercase;
     color: #545f7d;
     padding: 0 !important;
-     @include table-font-size();
+    @include table-font-size();
   }
 }
 
@@ -304,7 +303,7 @@ li .nav-link-inactive {
     font-size: 12px;
     text-transform: uppercase;
     color: #545f7d;
-     @include table-font-size();
+    @include table-font-size();
   }
 }
 
@@ -325,7 +324,7 @@ li .nav-link-inactive {
     font-size: 12px;
     text-transform: uppercase;
     color: #545f7d;
-     @include table-font-size();
+    @include table-font-size();
   }
 }
 
@@ -335,17 +334,56 @@ td {
   font-weight: 400;
   font-size: 14px;
   color: #545f7d;
-   @include table-font-size();
+  @include table-font-size();
 }
 
 .status-wrapper {
   border-radius: 100px !important;
-  width:100px;
+  width: 100px;
   font-family: "Work Sans" !important;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   text-align: center;
   text-transform: capitalize;
-   @include table-font-size();
+  @include table-font-size();
+}
+
+// table list and pagination
+
+.data-list-text {
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: #545f7d;
+}
+
+.dropdown-wrapper {
+  background-color: rgba(33, 63, 125, 0.1) !important;
+  border-radius: 4px !important;
+  width: 80px;
+  height: 30px;
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #213f7d !important;
+}
+
+.table-list-item {
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #213f7d;
+}
+
+.table-list-item:hover {
+  background-color: rgba(33, 63, 125, 0.1) !important;
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #213f7d;
 }

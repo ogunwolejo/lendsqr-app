@@ -6,11 +6,23 @@ import userWithLoanIcons from "../../assets/card-icons/user-with-loans.svg";
 import usersWithSaving from "../../assets/card-icons/users-with-savings.svg";
 import { CgSortAz } from "react-icons/cg";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { useSelector, useDispatch } from "react-redux";
+import { updateTableList } from "../../../store/tableList.slice";
+
+const tableListValues: Array<number> = [5, 20, 50, 75, 100];
 
 const UserPage: React.FC = () => {
+  const dispatch = useDispatch();
   const path: string = window.location.pathname;
   const pageName: Array<string> = path.split("/");
-  console.log(pageName[1]);
+
+  const { tableList } = useSelector((store: any) => ({
+    tableList: store?.tableList.data,
+  }));
+
+  const onChangeTableNumberDataToShowHandler = (e:number) => {
+    dispatch(updateTableList(e));
+  }
 
   return (
     <div className="d-flex flex-column ms-md-5 mt-md-5 ms-3  me-3 mt-3 me-md-5 justify-content-start py-1">
@@ -115,6 +127,34 @@ const UserPage: React.FC = () => {
             </table>
           </div>
         </div>
+      </div>
+      <div className="table-data-list-and-pagination d-flex flex-row justify-content-between align-items-center mt-3">
+        <div className="table-data-list d-flex flex-row justify-content-start align-items-center gap-2">
+          <div className="data-list-text">Showing</div>
+          <div className="dropdown-center">
+            <div
+              className=" dropdown-toggle dropdown-wrapper  d-flex flex-row justify-content-center align-items-center gap-2"
+              //type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {tableList}
+            </div>
+            <ul className="dropdown-menu py-0">
+              {tableListValues.map((el: number, index: number) => {
+                return (
+                  <li key={index}>
+                    <div className="dropdown-item table-list-item"  onClick={() => onChangeTableNumberDataToShowHandler(el)}>
+                      {el}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <div className="data-list-text">out of 100</div>
+        </div>
+        <div className="table-pagination"></div>
       </div>
     </div>
   );
