@@ -169,7 +169,7 @@ li .nav-link-inactive {
   text-transform: capitalize;
 
   @media screen and (max-width: 600px) {
-    font-size: 16px;
+    font-size: 13px;
   }
 
   @media screen and (min-width: 882px) and (max-width: 1024px) {
@@ -191,6 +191,10 @@ li .nav-link-inactive {
   width: 100%;
 }
 
+.main-table-wrapper {
+  min-height: 640px;
+}
+
 @mixin table-font-size {
   @media screen and (max-width: 600px) {
     font-size: 10px;
@@ -210,6 +214,7 @@ li .nav-link-inactive {
   display: flex !important;
   justify-content: flex-start !important;
   align-items: center !important;
+  cursor: pointer;
   &-name {
     width: 90px;
     font-family: "Work Sans" !important;
@@ -357,6 +362,7 @@ td {
   font-weight: 400;
   font-size: 14px;
   color: #545f7d;
+  @include font-sizes();
 }
 
 .dropdown-wrapper {
@@ -369,6 +375,11 @@ td {
   font-weight: 500;
   font-size: 14px;
   color: #213f7d !important;
+  @include font-sizes();
+  @media screen and (max-width: 600px) {
+    width: 40px;
+    height: 20px;
+  }
 }
 
 .table-list-item {
@@ -377,6 +388,7 @@ td {
   font-weight: 500;
   font-size: 14px;
   color: #213f7d;
+  @include font-sizes();
 }
 
 .table-list-item:hover {
@@ -386,4 +398,288 @@ td {
   font-weight: 500;
   font-size: 14px;
   color: #213f7d;
+  @include font-sizes();
+}
+
+// pagination
+
+.next-pagination-icon,
+.previous-pagination-icon {
+  width: 8px;
+  height: 6px;
+}
+
+.previous-label-pagination,
+.next-label-pagination {
+  background: rgba(33, 63, 125, 0.1) !important;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  box-sizing: border-box !important;
+  @media screen and (max-width: 600px) {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@mixin paginate {
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.active-pagination-page {
+  @include paginate();
+  color: #545f7d !important;
+  @include font-sizes();
+}
+
+.next-link-paginate,
+.previous-link-paginate,
+.pagination-text {
+  @include paginate();
+  @include font-sizes();
+  color: #545f7d !important;
+}
+
+// dropdown to change the status
+
+.dropdown-status {
+  background: #ffffff !important;
+  border: 1px solid rgba(84, 95, 125, 0.04) !important;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04) !important;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &-text {
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 500 !important;
+    font-size: 14px;
+    color: #545f7d !important;
+    @include font-sizes();
+    text-transform: capitalize;
+  }
+}
+
+// user-details
+.arrow-back {
+  width: 27px !important;
+  color: rgba(84, 95, 125, 1);
+
+  &-text {
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #545f7d;
+    @include font-sizes();
+  }
+}
+
+@mixin user-detail-action-btn {
+  width: 170px;
+  height: 40px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  @include font-sizes();
+
+  @media screen and (max-width: 600px) {
+    width: auto;
+    height: auto;
+    letter-spacing: 0.02em;
+  }
+}
+
+.btn-activate {
+  border: 1px solid #39cdcc;
+  color: #39cdcc;
+  @include user-detail-action-btn();
+}
+
+.btn-blacklist {
+  border: 1px solid #e4033b;
+  color: #e4033b;
+  @include user-detail-action-btn();
+}
+
+.card-user-header {
+  background: #ffffff !important;
+  border: 1px solid rgba(33, 63, 125, 0.06) !important;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04) !important;
+  border-radius: 4px;
+  box-sizing: border-box !important;
+  --bs-card-spacer-y: 0 !important;
+}
+
+@mixin user-details-pill-text {
+  font-family: "SF Compact Text" !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none !important;
+  @media screen and (max-width: 600px) {
+    font-size: 6px;
+  }
+
+  @media screen and (min-width: 882px) and (max-width: 1024px) {
+    font-size: 11px;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 881px) {
+    font-size: 10px !important;
+  }
+}
+
+.user-details-pill {
+  @include user-details-pill-text();
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.user-details-pill-active {
+  @include user-details-pill-text();
+  color: rgba(57, 205, 204, 1) !important;
+  //border-bottom: 2px solid #39CDCC !important;
+  //text-decoration: underline solid #39cdcc 2px !important;
+  padding-bottom: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  width: 170px !important;
+}
+
+.user-profile {
+  &-bg {
+    background: rgba(33, 63, 125, 0.16);
+    border-radius: 4px;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+
+    @media screen and (max-width: 600px) {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    &-img {
+      height: 15px;
+      width: 15px;
+    }
+  }
+
+  &-name {
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    color: #213f7d;
+
+    @media screen and (max-width: 600px) {
+      font-size: 14px;
+    }
+  }
+
+  &-num {
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #545f7d;
+    @include font-sizes();
+  }
+}
+
+.user-tier {
+  border-left: 1px solid rgba(84, 95, 125, 0.2) !important;
+  border-right: 1px solid rgba(84, 95, 125, 0.2) !important;
+
+  &-title {
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: #545f7d !important;
+    @include font-sizes();
+  }
+}
+
+.user-bal {
+  &-amount,
+  &-amount span {
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    color: #213f7d !important;
+
+    @include font-sizes();
+  }
+  &-bank {
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: #213f7d;
+    @media screen and (max-width: 600px) {
+      font-size: 8px;
+    }
+  }
+}
+
+// user-details  ----- inner page
+.outlet-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(33, 63, 125, 0.06) !important;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04) !important;
+  border-radius: 4px;
+  min-height: 600px;
+  height: auto;
+}
+
+.card-main-page-header {
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #213f7d !important;
+  @include font-sizes();
+}
+
+.component-label {
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #545f7d;
+  @media screen and (max-width: 600px) {
+    font-size: 8px;
+  }
+
+  @media screen and (min-width: 882px) and (max-width: 1024px) {
+    font-size: 11px;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 881px) {
+    font-size: 10px !important;
+  }
+}
+
+.component-result {
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #545f7d !important;
+  @include font-sizes();
 }

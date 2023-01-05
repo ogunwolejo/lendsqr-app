@@ -1,0 +1,170 @@
+import "../../styles/style.scss";
+import { useMemo } from "react";
+import { BsArrowLeft } from "react-icons/bs";
+import { NavLink } from "react-router-dom";
+import personIcon from "../../assets/Vector.svg";
+import { Rating } from "react-simple-star-rating";
+import { Outlet, useNavigate } from "react-router-dom";
+
+
+const RK:string = "/user-detail/"
+
+const UserDetailPage: React.FC = () => {
+  const navigate = useNavigate();
+  const path: string = window.location.pathname;
+  const pageName: Array<string> = path.split("/");
+  const mainPageName: string = useMemo(() => {
+    if (pageName[1].toLowerCase() === "user-detail") {
+      return "User Details";
+    }
+    return "";
+  }, []);
+
+  return (
+    <div className="d-flex flex-column ms-md-5 mt-md-5 mx-2  mt-2 me-md-5 justify-content-start py-1 ">
+      <div className="d-flex flex-row justify-content-start align-items-center gap-2">
+        <BsArrowLeft color="#545f7d" className="arrow-back" onClick={() => navigate(-1)}/>
+        <div className="arrow-back-text">Back to Users</div>
+      </div>
+      <div className="mt-3 d-flex flex-row justify-content-between align-items-center ">
+        <div className="page-name">{mainPageName}</div>
+
+        <div className="d-flex flex-row justify-content-start align-items-center gap-md-3 gap-1">
+          <button className="btn btn-blacklist">Blacklist User</button>
+          <button className="btn btn-activate">Activate User</button>
+        </div>
+      </div>
+
+      <div className="card card-user-header col-12 mt-md-5 mt-3 pt-3 px-1">
+        <div className="card-body pt-2 px-1 d-flex flex-column justify-content-between align-items-start position-relative">
+          <div className="user-details-summary mt-2 d-flex flex-row justify-content-start align-items-stretch gap-lg-4 gap-2">
+            <div className="user-profile d-flex flex-row justify-content-start align-items-center gap-2">
+              <div className="user-profile-bg d-flex flex-row justify-content-center align-items-center ">
+                <img
+                  src={personIcon}
+                  alt="vector-img"
+                  className="user-profile-img"
+                />
+              </div>
+              <div className="d-flex flex-column align-items-start">
+                <div className="user-profile-name">Grace Effiom</div>
+                <div className="user-profile-num">LSQFf587g90</div>
+              </div>
+            </div>
+
+            <div className="user-tier px-md-4 px-1 d-flex flex-column justify-content-center">
+              <div className="user-tier-title">User’s Tier</div>
+              <div className="mt-0">
+                <Rating
+                  iconsCount={3}
+                  readonly={true}
+                  initialValue={1}
+                  size={14}
+                />
+              </div>
+            </div>
+            <div className="user-bal ps-2 d-flex flex-column justify-content-center">
+              <div className="user-bal-amount">
+                <span>&#8358;</span>
+                {new Intl.NumberFormat().format(200000000)}
+              </div>
+              <div className="user-bal-bank">9912345678/Providus Bank</div>
+            </div>
+          </div>
+          <div className="col-12 mb-0 row gx-0 mt-3">
+            <div className="col-2  d-flex flex-row justify-content-center align-items-center pt-2">
+              <NavLink
+                to={`${RK}general`}
+                className={({ isActive }) =>
+                  `${
+                    isActive
+                      ? "user-details-pill-active w-100"
+                      : "user-details-pill"
+                  }`
+                }
+              >
+                General Details
+              </NavLink>
+            </div>
+            <div className="col-2  d-flex flex-row justify-content-center align-items-center pt-2">
+              <NavLink
+                to={`${RK}document`}
+                className={({ isActive }) =>
+                  `${
+                    isActive
+                      ? "user-details-pill-active w-100"
+                      : "user-details-pill"
+                  }`
+                }
+              >
+                Documents
+              </NavLink>
+            </div>
+            <div className="col-2  d-flex flex-row justify-content-center align-items-center pt-2">
+              <NavLink
+                to={`${RK}bank`}
+                className={({ isActive }) =>
+                  `${
+                    isActive
+                      ? "user-details-pill-active w-100"
+                      : "user-details-pill"
+                  }`
+                }
+              >
+                Bank Details
+              </NavLink>
+            </div>
+            <div className="col-2  d-flex flex-row justify-content-center align-items-center pt-2">
+              <NavLink
+                to={`${RK}loans`}
+                className={({ isActive }) =>
+                  `${
+                    isActive
+                      ? "user-details-pill-active w-100"
+                      : "user-details-pill"
+                  }`
+                }
+              >
+                Loans
+              </NavLink>
+            </div>
+            <div className="col-2  d-flex flex-row justify-content-center align-items-center pt-2">
+              <NavLink
+                 to={`${RK}savings`}
+                className={({ isActive }) =>
+                  `${
+                    isActive
+                      ? "user-details-pill-active w-100"
+                      : "user-details-pill"
+                  }`
+                }
+              >
+                Savings
+              </NavLink>
+            </div>
+            <div className="col-2  d-flex flex-row justify-content-center align-items-center pt-2">
+              <NavLink
+                to={`${RK}system`}
+                className={({ isActive }) =>
+                  `${
+                    isActive
+                      ? "user-details-pill-active w-100"
+                      : "user-details-pill"
+                  }`
+                }
+              >
+                App and System
+              </NavLink>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-info mt-4">
+        <Outlet />
+      </div>
+    </div>
+  );
+};
+
+export default UserDetailPage;

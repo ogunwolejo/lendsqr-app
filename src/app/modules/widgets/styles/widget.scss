@@ -291,10 +291,10 @@ input::placeholder {
 }
 
 @mixin hide-text {
-    @media screen and (max-width:600px) {
-        display: none !important;
-    }
- }
+  @media screen and (max-width: 600px) {
+    display: none !important;
+  }
+}
 
 .side-bar-menu-title-active {
   font-family: "Work Sans" !important;
@@ -323,4 +323,96 @@ input::placeholder {
   height: 16px;
   width: 16px;
   @include image-size();
+}
+
+/**********************************************************************************************************************************************************************
+  filter - for table
+*********************************************************************************************************************************/
+
+.dropdown-filter {
+  background: #ffffff !important;
+  border: 1px solid rgba(84, 95, 125, 0.14) !important;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04) !important;
+  border-radius: 4px;
+  width: 270px !important;
+  //box-sizing: border-box;
+  @media screen and (max-width:600px) {
+    width:150px !important;
+  }
+}
+
+.filter-label {
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #545f7d !important;
+  text-transform: capitalize;
+   @include font-sizes();
+}
+
+.filter-input {
+  outline: none !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(33, 63, 125, 0.2) !important;
+  border-radius: 8px;
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(84, 95, 125, 0.7) !important;
+  @include font-sizes();
+
+  &::placeholder {
+    font-family: "Work Sans" !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(84, 95, 125, 0.7) !important;
+     @include font-sizes();
+  }
+}
+
+.filter-select {
+  width: 100%;
+  outline: none !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(33, 63, 125, 0.2) !important;
+  border-radius: 8px;
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+   @include font-sizes();
+}
+
+@mixin filter-btn-text {
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  width:98px;
+  height:40px;
+  @media screen and (max-width:600px) {
+    width: auto;
+    height:auto;
+  }
+  
+}
+
+.filter-reset-btn {
+  border: 1px solid #545f7d !important;
+  border-radius: 8px !important;
+  @include filter-btn-text();
+  color:#545F7D !important;
+   @include font-sizes();
+}
+
+.filter-filter-btn {
+  background: #39cdcc !important;
+  border: 1px solid #39cdcc !important;
+  border-radius: 8px;
+  color:#FFF !important;
+  @include filter-btn-text();
+   @include font-sizes();
 }

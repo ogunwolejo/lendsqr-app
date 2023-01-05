@@ -1,18 +1,34 @@
 // this is the page for the various routes
+import { useState } from "react";
 import CustomizeCard from "../widgets/cards/customize.card";
 import userIcon from "../../assets/card-icons/users.svg";
 import activeUserIcon from "../../assets/card-icons/active-users.svg";
 import userWithLoanIcons from "../../assets/card-icons/user-with-loans.svg";
 import usersWithSaving from "../../assets/card-icons/users-with-savings.svg";
 import { CgSortAz } from "react-icons/cg";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import {
+  BsThreeDotsVertical,
+  BsChevronLeft,
+  BsChevronRight
+} from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { updateTableList } from "../../../store/tableList.slice";
+import ReactPaginate from "react-paginate";
+import "../../styles/style.scss";
+import FilterComponent from "../widgets/filter";
+import { useNavigate } from "react-router-dom";
+
+//status-icons
+import activateUserIcon from "../../assets/status-icons/active-user.svg";
+import blacklistUserIcon from "../../assets/status-icons/black-list.svg";
+import viewUserDetailIcon from "../../assets/status-icons/view-detail.svg";
+
 
 const tableListValues: Array<number> = [5, 20, 50, 75, 100];
 
 const UserPage: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const path: string = window.location.pathname;
   const pageName: Array<string> = path.split("/");
 
@@ -20,12 +36,19 @@ const UserPage: React.FC = () => {
     tableList: store?.tableList.data,
   }));
 
-  const onChangeTableNumberDataToShowHandler = (e:number) => {
+  const [currentPage, setCurrentPage] = useState<number>(3);
+  const [dataPerPage] = useState<number>(tableList);
+
+  const onChangeTableNumberDataToShowHandler = (e: number) => {
     dispatch(updateTableList(e));
+  };
+
+  const viewUserDetailsHandler = ():void => {
+    navigate("/user-detail/general")
   }
 
   return (
-    <div className="d-flex flex-column ms-md-5 mt-md-5 ms-3  me-3 mt-3 me-md-5 justify-content-start py-1">
+    <div className="d-flex flex-column ms-md-5 mt-md-5 mx-2 mt-2 me-md-5 justify-content-start py-1 ">
       <div className="page-name col-12 ">{pageName[1]}</div>
 
       <div className="mt-md-5 mt-lg-5 mt-3 d-flex flex-row justify-content-between ">
@@ -56,16 +79,13 @@ const UserPage: React.FC = () => {
       </div>
       <div className="mt-2 mt-md-4 card-table col-12">
         <div className="card-body px-2 py-3">
-          <div className="table-responsive">
+          <div className="table-responsive main-table-wrapper">
             <table className="table">
               <thead className="mt-1 mb-3 ">
                 <tr>
                   <th scope="col" className="table-col">
                     <div className="table-head-organization">
-                      <div className="table-head-organization-name me-1">
-                        Organization
-                      </div>
-                      <CgSortAz color="#000" className="table-icon" />
+                      <FilterComponent />
                     </div>
                   </th>
                   <th scope="col" className="table-col-2">
@@ -119,7 +139,37 @@ const UserPage: React.FC = () => {
                   <td className="py-xs-2 py-md-4 ">
                     <div className="d-flex flex-row justify-content-start gap-3 align-items-center">
                       <StatusWrapper status="pending" />
-                      <BsThreeDotsVertical color="#545F7D" />
+                      {/**  */}
+                      <div className="dropdown">
+                        <BsThreeDotsVertical
+                          color="#545F7D"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        />
+                        <ul className="dropdown-menu dropdown-menu-start p-md-4 p-2 dropdown-status">
+                          <li className="my-1" onClick={viewUserDetailsHandler}>
+                            <div className="d-flex flex-row justify-content-start align-items-center gap-2">
+                              <img src={viewUserDetailIcon} className="" alt="status-img"/>
+                              <div className="dropdown-status-text">View Details</div>
+                            </div>
+                          </li>
+
+                          <li className="my-1">
+                            <div className="d-flex flex-row justify-content-start align-items-center gap-2">
+                              <img src={blacklistUserIcon} className="" alt="status-img"/>
+                              <div className="dropdown-status-text">Blacklist User</div>
+                            </div>
+                          </li>
+
+                          <li className="my-1">
+                            <div className="d-flex flex-row justify-content-start align-items-center gap-2">
+                              <img src={activateUserIcon} className="" alt="status-img"/>
+                              <div className="dropdown-status-text">Activate User</div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                      {/** */}
                     </div>
                   </td>
                 </tr>
@@ -144,7 +194,10 @@ const UserPage: React.FC = () => {
               {tableListValues.map((el: number, index: number) => {
                 return (
                   <li key={index}>
-                    <div className="dropdown-item table-list-item"  onClick={() => onChangeTableNumberDataToShowHandler(el)}>
+                    <div
+                      className="dropdown-item table-list-item"
+                      onClick={() => onChangeTableNumberDataToShowHandler(el)}
+                    >
                       {el}
                     </div>
                   </li>
@@ -154,7 +207,35 @@ const UserPage: React.FC = () => {
           </div>
           <div className="data-list-text">out of 100</div>
         </div>
-        <div className="table-pagination"></div>
+        <div className="table-pagination">
+          <ReactPaginate
+            pageRangeDisplayed={15}
+            pageCount={10}
+            nextLabel={
+              <BsChevronRight
+                color="rgba(33, 63, 125, 1)"
+                width="6.5"
+                className="next-pagination-icon mb-1 mb-md-0"
+              />
+            }
+            previousLabel={
+              <BsChevronLeft
+                color="rgba(33, 63, 125, 1)"
+                width="6.5"
+                className="previous-pagination-icon mb-1 mb-md-0"
+              />
+            }
+            //onPageChange={changePageHandler}
+            pageClassName="pagination-text px-1"
+            //pageLinkClassName="page-link "
+            previousClassName="previous-label-pagination me-md-2 d-flex flex-row justify-content-center align-items-center"
+            //previousLinkClassName="previous-link-paginate"
+            nextClassName="next-label-pagination ms-md-2 d-flex flex-row justify-content-center align-items-center"
+            //nextLinkClassName="next-link-paginate"
+            containerClassName="pagination px-md-2 py-md-2 p-0"
+            activeClassName="active-pagination-page active"
+          />
+        </div>
       </div>
     </div>
   );
