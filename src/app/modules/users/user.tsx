@@ -51,7 +51,6 @@ const UserPage: React.FC = () => {
     })
   );
 
-  console.log("search", search);
 
   useEffect(() => {
     //setIsLoading(true);

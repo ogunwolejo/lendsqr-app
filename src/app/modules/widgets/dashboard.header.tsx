@@ -15,7 +15,6 @@ const DashboardHeader = () => {
   const search  = useSelector((store: any) => store?.data.search);
 
   const onSearchHandler = (s: string): void => {
-    //console.log(s);
     dispatch(onSearch(s));
   };
 
@@ -77,7 +76,7 @@ const LogoutHandlerComponent = () => {
 
   const logoutHandler = ():void => {
     dispatch(setCurrentUser({ payload: null }));
-    navigate('/');
+    //navigate('/auth');
   }
   return (
     <div className="dropdown">
