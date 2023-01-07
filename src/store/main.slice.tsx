@@ -13,6 +13,16 @@ const _: MAIN_LIST = {
   activeUser: 0,
   usersWithLoan: 0,
   usersWithSavings: 0,
+  filter:{
+  organizationName: "",
+  userName: "",
+  email: "",
+  phoneNumber: "",
+  dateJoined: "",
+  status: 0,
+  id:""
+
+  }
 };
 
 const MainSlice = createSlice({
@@ -59,6 +69,10 @@ const MainSlice = createSlice({
         ...state,
         mainData: { ...state.mainData, usersData: _userData },
       };
+    },
+
+    filterUserData:(state, action) => {
+      return {...state, filter:action.payload}
     },
 
     calUsersWithLoans: (state, action) => {
@@ -123,4 +137,5 @@ export const {
   mapDataToFitUserTable,
   activeUserAccount,
   blackListUserAccount,
+  filterUserData
 } = MainSlice.actions;

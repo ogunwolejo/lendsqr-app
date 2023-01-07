@@ -13,6 +13,7 @@ export interface SIDE_BAR_MENU {
 export interface MAIN_LIST {
   data: number;
   search:string;
+  filter:USER_DATA;
   mainData: {
     error: any;
     loading: boolean;

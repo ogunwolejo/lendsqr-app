@@ -41,12 +41,13 @@ const UserPage: React.FC = () => {
   const path: string = window.location.pathname;
   const pageName: Array<string> = path.split("/");
 
-  const { tableList, mainData, usersWithLoan, search } = useSelector(
+  const { tableList, mainData, usersWithLoan, search, filter } = useSelector(
     (store: any) => ({
       tableList: store?.data.data,
       mainData: store?.data.mainData,
       usersWithLoan: store?.data.usersWithLoan,
       search: store?.data.search,
+      filter:store?.data.filter
     })
   );
 
@@ -122,10 +123,25 @@ if (search.trim().length > 0) {
         });
         //console.log("f", searchedData);
         cloneUsersData = searchedData;
-    } else {
-      
-      cloneUsersData = mainData.usersData;
-    }
+    } 
+
+
+// filtering
+let {organizationName, email, userName, phoneNumber, dateJoined, status} = filter;
+
+if(organizationName.trim().length > 0 || email.trim().length > 0 || userName.trim().length > 0  || phoneNumber.trim().length > 0 || dateJoined.trim().length > 0  || status ) 
+{
+  let filteredData = mainData.usersData &&
+        mainData.usersData.filter((e:USER_DATA) => {
+          let date = new Date(e.dateJoined);
+          if(e.organizationName.toLowerCase().includes(organizationName.toLowerCase()) && (e.email.toLowerCase().includes(email.toLowerCase())) && (e.userName.toLowerCase().includes(userName.toLowerCase())) && (e.phoneNumber.toLowerCase().includes(phoneNumber.toLowerCase())) && (e.dateJoined === date.toISOString()) && (e.status === status)) {
+            return true;
+          }
+        })
+
+         cloneUsersData = filteredData;
+}
+
 
 
 
