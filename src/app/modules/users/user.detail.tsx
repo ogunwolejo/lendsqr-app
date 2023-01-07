@@ -1,13 +1,19 @@
 import "../../styles/style.scss";
-import { useMemo, useEffect } from "react";
+import { useMemo } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import personIcon from "../../assets/Vector.svg";
 import { Rating } from "react-simple-star-rating";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
+import {
+  activeUserAccount,
+  blackListUserAccount,
+} from "../../../store/main.slice";
+import {useDispatch} from "react-redux";
 
 const UserDetailPage: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const path: string = window.location.pathname;
   const pageName: Array<string> = path.split("/");
   const mainPageName: string = useMemo(() => {
@@ -17,13 +23,22 @@ const UserDetailPage: React.FC = () => {
     return "";
   }, []);
 
-  const { id } = useParams();
+  let { id } = useParams();
 
   let currentUser: any = useMemo(() => {
     const data: string | null = window.localStorage.getItem("data");
     const parseData: [] = data && JSON.parse(data);
     return parseData.find((e: any) => e.id === id);
   }, [id]);
+  
+
+  const blacklistUserHandler = (id: string): void => {
+    dispatch(blackListUserAccount(id))
+  };
+
+  const activeUserHandler = (id: string): void => {
+    dispatch(activeUserAccount(id));
+  }
 
 
   return (
@@ -40,8 +55,8 @@ const UserDetailPage: React.FC = () => {
         <div className="page-name">{mainPageName}</div>
 
         <div className="d-flex flex-row justify-content-start align-items-center gap-md-3 gap-1">
-          <button className="btn btn-blacklist">Blacklist User</button>
-          <button className="btn btn-activate">Activate User</button>
+          <button className="btn btn-blacklist" onClick={() => id && blacklistUserHandler(id)}>Blacklist User</button>
+          <button className="btn btn-activate" onClick={() => id && activeUserHandler(id)}>Activate User</button>
         </div>
       </div>
 

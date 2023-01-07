@@ -40,7 +40,23 @@ const UserPage: React.FC = () => {
   const path: string = window.location.pathname;
   const pageName: Array<string> = path.split("/");
 
+  const { tableList, search, mainData, usersWithLoan } = useSelector(
+    (store: any) => ({
+      tableList: store?.data.data,
+      search: store?.data.search,
+      mainData: store?.data.mainData,
+      usersWithLoan: store?.data.usersWithLoan,
+    })
+  );
+
+
   useEffect(() => {
+
+    if(mainData.appData.length > 0) {
+      //console.log("data exisit", mainData.appData.length);
+      return; 
+    }
+
     const makeRequestForData = async () => {
       try {
         const response = await Axios.get(
@@ -65,15 +81,6 @@ const UserPage: React.FC = () => {
     };
     makeRequestForData();
   }, []);
-
-  const { tableList, search, mainData, usersWithLoan } = useSelector(
-    (store: any) => ({
-      tableList: store?.data.data,
-      search: store?.data.search,
-      mainData: store?.data.mainData,
-      usersWithLoan: store?.data.usersWithLoan,
-    })
-  );
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 

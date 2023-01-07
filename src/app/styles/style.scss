@@ -502,14 +502,14 @@ td {
 }
 
 .btn-activate {
-  border: 1px solid #39cdcc;
-  color: #39cdcc;
+  border: 1px solid #39cdcc !important;
+  color: #39cdcc !important;
   @include user-detail-action-btn();
 }
 
 .btn-blacklist {
-  border: 1px solid #e4033b;
-  color: #e4033b;
+  border: 1px solid #e4033b !important;
+  color: #e4033b !important;
   @include user-detail-action-btn();
 }
 
