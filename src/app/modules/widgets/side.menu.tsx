@@ -9,7 +9,7 @@ const SideBabrMenu: React.FC<{
   isActive?: boolean;
 }> = ({ title, image, currentPath, route, isActive = false }) => {
   let [isCurrentPath, setCurrentPath] = useState<boolean>(false);
-  console.log(window.location.pathname, isActive);
+  //console.log(window.location.pathname, isActive);
 
   //let isCurrent:boolean = route === currentPath ? true : false;
 

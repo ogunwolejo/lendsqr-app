@@ -193,6 +193,8 @@ li .nav-link-inactive {
 
 .main-table-wrapper {
   min-height: 640px;
+  max-height: 800px;
+  overflow-y: scroll;
 }
 
 @mixin table-font-size {
@@ -368,7 +370,7 @@ td {
 .dropdown-wrapper {
   background-color: rgba(33, 63, 125, 0.1) !important;
   border-radius: 4px !important;
-  width: 80px;
+  width: 60px;
   height: 30px;
   font-family: "Work Sans" !important;
   font-style: normal;

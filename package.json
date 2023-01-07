@@ -14,6 +14,7 @@
     "@types/react-dom": "^18.0.10",
     "@types/react-paginate": "^7.1.1",
     "@types/react-redux": "^7.1.25",
+    "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
@@ -24,6 +25,7 @@
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
     "react-simple-star-rating": "^5.1.7",
+    "react-spinners": "^0.13.7",
     "sass": "^1.57.1",
     "typescript": "^4.9.4",
     "web-vitals": "^2.1.4"

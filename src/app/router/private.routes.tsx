@@ -1,4 +1,4 @@
-import {Suspense , lazy} from "react";
+import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import AuthLayout from "../modules/auth/auth.layout";
 import DashboardLayout from "../pages/dashboard/dashboard";
@@ -9,16 +9,24 @@ import UserDetailPage from "../modules/users/user.detail";
 import GeneralDetailsPage from "../modules/info/general.detail";
 import AlternativePage from "../modules/info/alternative";
 
+import { DotLoader } from "react-spinners";
 
-const UserComponent = lazy(() => import ("../modules/users/user"));
-
-
+const UserComponent = lazy(() => import("../modules/users/user"));
 
 const PrivateRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<DashboardLayout />}>
-        <Route path="users" element={<UserPage />} />
+        {/*<Route path="users" element={<UserPage />} />*/}
+        <Route
+          path="users"
+          element={
+            <Suspense fallback={<DotLoader />}>
+              <UserComponent />
+            </Suspense>
+          }
+        />
+
         <Route path="guarantors" element={<OtherPages />} />
         <Route path="loans" element={<OtherPages />} />
         <Route path="decision-model" element={<OtherPages />} />
@@ -41,7 +49,7 @@ const PrivateRoutes = () => {
         <Route path="pricing" element={<OtherPages />} />
         <Route path="audit" element={<OtherPages />} />
 
-        <Route path="user-detail" element={<UserDetailPage />}>
+        <Route path="user-detail/:id" element={<UserDetailPage />}>
           <Route path="general" element={<GeneralDetailsPage />} />
           <Route path="document" element={<AlternativePage />} />
           <Route path="bank" element={<AlternativePage />} />

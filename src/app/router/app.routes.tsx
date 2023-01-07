@@ -14,8 +14,6 @@ const Router: React.FC = () => {
     currentUser: store.auth.currentUser,
   }));
 
-  console.log("appRoutes", currentUser);
-
   return (
     <>
       {currentUser ? (

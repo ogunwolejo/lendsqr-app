@@ -1,5 +1,5 @@
 // this is the page for the various routes
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CustomizeCard from "../widgets/cards/customize.card";
 import userIcon from "../../assets/card-icons/users.svg";
 import activeUserIcon from "../../assets/card-icons/active-users.svg";
@@ -9,22 +9,30 @@ import { CgSortAz } from "react-icons/cg";
 import {
   BsThreeDotsVertical,
   BsChevronLeft,
-  BsChevronRight
+  BsChevronRight,
 } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
-import { updateTableList } from "../../../store/tableList.slice";
+import {
+  updateTableList,
+  fetchAppData,
+  mapDataToFitUserTable,
+  calUsersWithLoans,
+  activeUserAccount,
+  blackListUserAccount,
+} from "../../../store/main.slice";
 import ReactPaginate from "react-paginate";
 import "../../styles/style.scss";
 import FilterComponent from "../widgets/filter";
 import { useNavigate } from "react-router-dom";
+import Axios from "axios";
+import { USER_DATA, USER_STATUS_NUMBER } from "../../../interface";
 
 //status-icons
 import activateUserIcon from "../../assets/status-icons/active-user.svg";
 import blacklistUserIcon from "../../assets/status-icons/black-list.svg";
 import viewUserDetailIcon from "../../assets/status-icons/view-detail.svg";
 
-
-const tableListValues: Array<number> = [5, 20, 50, 75, 100];
+const tableListValues: Array<number> = [5, 10, 20, 50, 75, 100];
 
 const UserPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,23 +40,76 @@ const UserPage: React.FC = () => {
   const path: string = window.location.pathname;
   const pageName: Array<string> = path.split("/");
 
-  const { tableList } = useSelector((store: any) => ({
-    tableList: store?.tableList.data,
-  }));
+  useEffect(() => {
+    const makeRequestForData = async () => {
+      try {
+        const response = await Axios.get(
+          "https://6270020422c706a0ae70b72c.mockapi.io/lendsqr/api/v1/users"
+        );
 
-  const [currentPage, setCurrentPage] = useState<number>(3);
-  const [dataPerPage] = useState<number>(tableList);
+        // inserting the fetched data into the reducers
+        dispatch(fetchAppData(response.data));
+
+        //mapping the data action call
+        //@ts-ignore
+        dispatch(mapDataToFitUserTable());
+        //@ts-ignore
+        dispatch(calUsersWithLoans());
+
+        //adding data into the local storage
+        window.localStorage.setItem("data", JSON.stringify(response.data));
+        return response;
+      } catch (err) {
+        return err;
+      }
+    };
+    makeRequestForData();
+  }, []);
+
+  const { tableList, search, mainData, usersWithLoan } = useSelector(
+    (store: any) => ({
+      tableList: store?.data.data,
+      search: store?.data.search,
+      mainData: store?.data.mainData,
+      usersWithLoan: store?.data.usersWithLoan,
+    })
+  );
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const onChangeTableNumberDataToShowHandler = (e: number) => {
     dispatch(updateTableList(e));
   };
 
-  const viewUserDetailsHandler = ():void => {
-    navigate("/user-detail/general")
-  }
+  const viewUserDetailsHandler = (id: string): void => {
+    navigate(`/user-detail/${id}/general`);
+  };
+
+  const blacklistUserHandler = (id: string): void => {
+    dispatch(blackListUserAccount(id))
+  };
+
+  const activeUserHandler = (id: string): void => {
+    dispatch(activeUserAccount(id));
+  };
+
+  //pagination
+  const indexOfLastData: number = currentPage * tableList;
+  const indexOfFirstData: number = indexOfLastData - tableList;
+  const currentTableData: Array<USER_DATA> =
+    mainData.usersData &&
+    mainData.usersData.slice(indexOfFirstData, indexOfLastData);
+  const pageCount = mainData.usersData
+    ? Math.ceil(mainData.usersData.length / tableList)
+    : 0;
+
+  const changePageHandler = (event: any) => {
+    const pageNumber: number = parseInt(event.selected) + 1;
+    setCurrentPage(pageNumber);
+  };
 
   return (
-    <div className="d-flex flex-column ms-md-5 mt-md-5 mx-2 mt-2 me-md-5 justify-content-start py-1 ">
+    <div className="d-flex flex-column ms-md-4 mt-md-5 mx-2 mt-2 me-md-5 justify-content-start py-1 ">
       <div className="page-name col-12 ">{pageName[1]}</div>
 
       <div className="mt-md-5 mt-lg-5 mt-3 d-flex flex-row justify-content-between ">
@@ -56,7 +117,7 @@ const UserPage: React.FC = () => {
           backgroundColor="rgba(223, 24, 255, .1)"
           image={userIcon}
           title="users"
-          data={2453}
+          data={mainData.appData.length}
         />
         <CustomizeCard
           backgroundColor="rgba(87, 24, 255, .1)"
@@ -68,7 +129,7 @@ const UserPage: React.FC = () => {
           backgroundColor="rgba(245, 95, 68, .1)"
           image={userWithLoanIcons}
           title="users with loans"
-          data={12453}
+          data={usersWithLoan}
         />
         <CustomizeCard
           backgroundColor="rgba(255, 51, 102, .1)"
@@ -78,7 +139,7 @@ const UserPage: React.FC = () => {
         />
       </div>
       <div className="mt-2 mt-md-4 card-table col-12">
-        <div className="card-body px-2 py-3">
+        <div className="card-body ps-2 py-3">
           <div className="table-responsive main-table-wrapper">
             <table className="table">
               <thead className="mt-1 mb-3 ">
@@ -130,49 +191,87 @@ const UserPage: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className=" py-xs-2 py-md-4">Lendsqr</td>
-                  <td className="py-xs-2 py-md-4">Debby Ogana</td>
-                  <td className="py-xs-2 py-md-4">adedeji@lendsqr.com</td>
-                  <td className="py-xs-2 py-md-4">08078903721</td>
-                  <td className="py-xs-2 py-md-4">May 15, 2020 10:00 AM</td>
-                  <td className="py-xs-2 py-md-4 ">
-                    <div className="d-flex flex-row justify-content-start gap-3 align-items-center">
-                      <StatusWrapper status="pending" />
-                      {/**  */}
-                      <div className="dropdown">
-                        <BsThreeDotsVertical
-                          color="#545F7D"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                        />
-                        <ul className="dropdown-menu dropdown-menu-start p-md-4 p-2 dropdown-status">
-                          <li className="my-1" onClick={viewUserDetailsHandler}>
-                            <div className="d-flex flex-row justify-content-start align-items-center gap-2">
-                              <img src={viewUserDetailIcon} className="" alt="status-img"/>
-                              <div className="dropdown-status-text">View Details</div>
-                            </div>
-                          </li>
+                {currentTableData.map((el: USER_DATA) => {
+                  return (
+                    <tr key={el.id}>
+                      <td className=" py-xs-2 py-md-4">
+                        {el.organizationName}
+                      </td>
+                      <td className="py-xs-2 py-md-4">{el.userName}</td>
+                      <td className="py-xs-2 py-md-4">{el.email}</td>
+                      <td className="py-xs-2 py-md-4">{el.phoneNumber}</td>
+                      <td className="py-xs-2 py-md-4">
+                        {new Intl.DateTimeFormat("en-US", {
+                          dateStyle: "medium",
+                          timeStyle: "medium" /*timeZone: 'Australia/Sydney'*/,
+                        }).format(new Date(el.dateJoined))}
+                      </td>
+                      <td className="py-xs-2 py-md-4 ">
+                        <div className="d-flex flex-row justify-content-start gap-3 align-items-center">
+                          <StatusWrapper status={el.status} />
+                          {/**  */}
+                          <div className="dropdown">
+                            <BsThreeDotsVertical
+                              color="#545F7D"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                            />
+                            <ul className="dropdown-menu dropdown-menu-start p-md-4 p-2 dropdown-status">
+                              <li
+                                className="my-1"
+                                onClick={() => viewUserDetailsHandler(el.id)}
+                              >
+                                <div className="d-flex flex-row justify-content-start align-items-center gap-2">
+                                  <img
+                                    src={viewUserDetailIcon}
+                                    className=""
+                                    alt="status-img"
+                                  />
+                                  <div className="dropdown-status-text">
+                                    View Details
+                                  </div>
+                                </div>
+                              </li>
 
-                          <li className="my-1">
-                            <div className="d-flex flex-row justify-content-start align-items-center gap-2">
-                              <img src={blacklistUserIcon} className="" alt="status-img"/>
-                              <div className="dropdown-status-text">Blacklist User</div>
-                            </div>
-                          </li>
+                              <li
+                                className="my-1"
+                                onClick={() => blacklistUserHandler(el.id)}
+                              >
+                                <div className="d-flex flex-row justify-content-start align-items-center gap-2">
+                                  <img
+                                    src={blacklistUserIcon}
+                                    className=""
+                                    alt="status-img"
+                                  />
+                                  <div className="dropdown-status-text">
+                                    Blacklist User
+                                  </div>
+                                </div>
+                              </li>
 
-                          <li className="my-1">
-                            <div className="d-flex flex-row justify-content-start align-items-center gap-2">
-                              <img src={activateUserIcon} className="" alt="status-img"/>
-                              <div className="dropdown-status-text">Activate User</div>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                      {/** */}
-                    </div>
-                  </td>
-                </tr>
+                              <li
+                                className="my-1"
+                                onClick={() => activeUserHandler(el.id)}
+                              >
+                                <div className="d-flex flex-row justify-content-start align-items-center gap-2">
+                                  <img
+                                    src={activateUserIcon}
+                                    className=""
+                                    alt="status-img"
+                                  />
+                                  <div className="dropdown-status-text">
+                                    Activate User
+                                  </div>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                          {/** */}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -205,12 +304,14 @@ const UserPage: React.FC = () => {
               })}
             </ul>
           </div>
-          <div className="data-list-text">out of 100</div>
+          <div className="data-list-text">
+            out of {mainData.usersData.length}
+          </div>
         </div>
         <div className="table-pagination">
           <ReactPaginate
-            pageRangeDisplayed={15}
-            pageCount={10}
+            pageRangeDisplayed={pageCount}
+            pageCount={pageCount}
             nextLabel={
               <BsChevronRight
                 color="rgba(33, 63, 125, 1)"
@@ -225,7 +326,7 @@ const UserPage: React.FC = () => {
                 className="previous-pagination-icon mb-1 mb-md-0"
               />
             }
-            //onPageChange={changePageHandler}
+            onPageChange={changePageHandler}
             pageClassName="pagination-text px-1"
             //pageLinkClassName="page-link "
             previousClassName="previous-label-pagination me-md-2 d-flex flex-row justify-content-center align-items-center"
@@ -243,30 +344,44 @@ const UserPage: React.FC = () => {
 
 export default UserPage;
 
-const StatusWrapper: React.FC<{ status: string }> = ({ status }) => {
-  let backgroundColor =
-    status.toLowerCase() === "active"
-      ? "rgba(57, 205, 98, .06)"
-      : status.toLowerCase() === "inactive"
-      ? "rgba(84, 95, 125, .06)"
-      : status.toLowerCase() === "pending"
-      ? "rgba(233, 178, 0, .1)"
-      : "rgba(228, 3, 59, .1)";
+const StatusWrapper: React.FC<{ status: number }> = ({ status }) => {
+  let backgroundColor = "";
+  let color = "";
+  let text: string = "";
 
-  let color =
-    status.toLowerCase() === "active"
-      ? "#39CD62"
-      : status.toLowerCase() === "inactive"
-      ? "#545F7D"
-      : status.toLowerCase() === "pending"
-      ? "#E9B200"
-      : "#E4033B";
+  switch (status) {
+    case USER_STATUS_NUMBER.ACTIVE: {
+      backgroundColor = "rgba(57, 205, 98, .06)";
+      color = "#39CD62";
+      text = "active";
+      break;
+    }
+    case USER_STATUS_NUMBER.INACTIVE: {
+      backgroundColor = "rgba(84, 95, 125, .06)";
+      color = "#545F7D";
+      text = "inactive";
+      break;
+    }
+    case USER_STATUS_NUMBER.PENDING: {
+      backgroundColor = "rgba(233, 178, 0, .1)";
+      color = "#E9B200";
+      text = "pending";
+      break;
+    }
+
+    case USER_STATUS_NUMBER.BLACKLIST: {
+      backgroundColor = "rgba(228, 3, 59, .1)";
+      color = "#E4033B";
+      text = "blacklist";
+      break;
+    }
+  }
   return (
     <div
       className="status-wrapper px-1 py-1 d-flex flex-row align-items-center justify-content-center"
       style={{ color: color, backgroundColor }}
     >
-      {status}
+      {text}
     </div>
   );
 };

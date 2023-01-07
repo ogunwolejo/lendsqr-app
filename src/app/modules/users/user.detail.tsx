@@ -1,13 +1,10 @@
 import "../../styles/style.scss";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import personIcon from "../../assets/Vector.svg";
 import { Rating } from "react-simple-star-rating";
-import { Outlet, useNavigate } from "react-router-dom";
-
-
-const RK:string = "/user-detail/"
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 
 const UserDetailPage: React.FC = () => {
   const navigate = useNavigate();
@@ -20,10 +17,23 @@ const UserDetailPage: React.FC = () => {
     return "";
   }, []);
 
+  const { id } = useParams();
+
+  let currentUser: any = useMemo(() => {
+    const data: string | null = window.localStorage.getItem("data");
+    const parseData: [] = data && JSON.parse(data);
+    return parseData.find((e: any) => e.id === id);
+  }, [id]);
+
+
   return (
     <div className="d-flex flex-column ms-md-5 mt-md-5 mx-2  mt-2 me-md-5 justify-content-start py-1 ">
       <div className="d-flex flex-row justify-content-start align-items-center gap-2">
-        <BsArrowLeft color="#545f7d" className="arrow-back" onClick={() => navigate(-1)}/>
+        <BsArrowLeft
+          color="#545f7d"
+          className="arrow-back"
+          onClick={() => navigate(-1)}
+        />
         <div className="arrow-back-text">Back to Users</div>
       </div>
       <div className="mt-3 d-flex flex-row justify-content-between align-items-center ">
@@ -47,8 +57,8 @@ const UserDetailPage: React.FC = () => {
                 />
               </div>
               <div className="d-flex flex-column align-items-start">
-                <div className="user-profile-name">Grace Effiom</div>
-                <div className="user-profile-num">LSQFf587g90</div>
+                <div className="user-profile-name">{`${currentUser?.profile.firstName} ${currentUser?.profile.lastName}`}</div>
+                <div className="user-profile-num">LSQFf587g{id}</div>
               </div>
             </div>
 
@@ -66,15 +76,20 @@ const UserDetailPage: React.FC = () => {
             <div className="user-bal ps-2 d-flex flex-column justify-content-center">
               <div className="user-bal-amount">
                 <span>&#8358;</span>
-                {new Intl.NumberFormat().format(200000000)}
+                {new Intl.NumberFormat("en-US", {
+                  minimumFractionDigits: 2,
+                  useGrouping: true,
+                }).format(currentUser?.accountBalance)}
               </div>
-              <div className="user-bal-bank">9912345678/Providus Bank</div>
+              <div className="user-bal-bank">
+                {currentUser?.accountNumber}/{currentUser?.profile.address}
+              </div>
             </div>
           </div>
           <div className="col-12 mb-0 row gx-0 mt-3">
             <div className="col-2  d-flex flex-row justify-content-center align-items-center pt-2">
               <NavLink
-                to={`${RK}general`}
+                to={`general`}
                 className={({ isActive }) =>
                   `${
                     isActive
@@ -88,7 +103,7 @@ const UserDetailPage: React.FC = () => {
             </div>
             <div className="col-2  d-flex flex-row justify-content-center align-items-center pt-2">
               <NavLink
-                to={`${RK}document`}
+                to={`document`}
                 className={({ isActive }) =>
                   `${
                     isActive
@@ -102,7 +117,7 @@ const UserDetailPage: React.FC = () => {
             </div>
             <div className="col-2  d-flex flex-row justify-content-center align-items-center pt-2">
               <NavLink
-                to={`${RK}bank`}
+                to={`bank`}
                 className={({ isActive }) =>
                   `${
                     isActive
@@ -116,7 +131,7 @@ const UserDetailPage: React.FC = () => {
             </div>
             <div className="col-2  d-flex flex-row justify-content-center align-items-center pt-2">
               <NavLink
-                to={`${RK}loans`}
+                to={`loans`}
                 className={({ isActive }) =>
                   `${
                     isActive
@@ -130,7 +145,7 @@ const UserDetailPage: React.FC = () => {
             </div>
             <div className="col-2  d-flex flex-row justify-content-center align-items-center pt-2">
               <NavLink
-                 to={`${RK}savings`}
+                to={`savings`}
                 className={({ isActive }) =>
                   `${
                     isActive
@@ -144,7 +159,7 @@ const UserDetailPage: React.FC = () => {
             </div>
             <div className="col-2  d-flex flex-row justify-content-center align-items-center pt-2">
               <NavLink
-                to={`${RK}system`}
+                to={`system`}
                 className={({ isActive }) =>
                   `${
                     isActive
