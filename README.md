@@ -2,6 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project descript
+This project is a mvp in which you can login in with any username and password on the auth route, after loging in ther user is redirect to the user routes where user see a list of data from the end point.
+
+### Application Features
+The Features range from search, to filter, pagination, changing data status
+The user can filter, search, active, inactive, blacklist the data from the table, they can also see the user person details on the  user-detail/id/general route
+#### Status Logic
+To implement the status for each data point from the API, I made use of the lastActiveDate, which shows the last time a user was online, so I decided to implement the logic that if the lastActivedate is greater than the date the user joined then that user status is pending else it is inactive.      
+
+
 
 ## Available Scripts
 In the project directory, you can ru
