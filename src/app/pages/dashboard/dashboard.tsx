@@ -29,8 +29,6 @@ import feesAndPricingIcon from "../../assets/icons/fees-pricing.svg"
 import auditLogsIcons from "../../assets/icons/audit.svg";
 
 
-console.log(window.location.pathname);
-
 const DashboardLayout: React.FC = () => {
     let currentPath:string = window.location.pathname;
   return (

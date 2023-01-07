@@ -190,7 +190,7 @@ const UserDetailPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-info mt-4">
+      <div className=" mt-4">
         <Outlet />
       </div>
     </div>

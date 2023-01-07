@@ -3,7 +3,7 @@ import { MAIN_LIST, USER_STATUS_NUMBER, USER_DATA } from "../interface";
 
 const _: MAIN_LIST = {
   data: 10,
-  search: "",
+  search:'',
   mainData: {
     error: null,
     loading: false,
@@ -20,12 +20,11 @@ const MainSlice = createSlice({
   name: "table-list",
   reducers: {
     updateTableList: (state, action) => {
-      //state.data = action.payload;
       return { ...state, data: action.payload };
     },
 
     onSearch: (state, action) => {
-      return { ...state, search: action.payload };
+      return {...state, search:action.payload}
     },
 
     //inserting the fetched data into the app
@@ -90,9 +89,9 @@ const MainSlice = createSlice({
         email: currentUserData.email,
         id: currentUserData.id,
         organizationName: currentUserData.organizationName,
-        phoneNumber:currentUserData.phoneNumber,
-        userName:currentUserData.userName,
-        status:USER_STATUS_NUMBER.ACTIVE
+        phoneNumber: currentUserData.phoneNumber,
+        userName: currentUserData.userName,
+        status: USER_STATUS_NUMBER.ACTIVE,
       };
     },
 
@@ -106,9 +105,9 @@ const MainSlice = createSlice({
         email: currentUserData.email,
         id: currentUserData.id,
         organizationName: currentUserData.organizationName,
-        phoneNumber:currentUserData.phoneNumber,
-        userName:currentUserData.userName,
-        status:USER_STATUS_NUMBER.BLACKLIST
+        phoneNumber: currentUserData.phoneNumber,
+        userName: currentUserData.userName,
+        status: USER_STATUS_NUMBER.BLACKLIST,
       };
     },
   },
@@ -122,6 +121,6 @@ export const {
   fetchAppData,
   calUsersWithLoans,
   mapDataToFitUserTable,
-  activeUserAccount, 
-  blackListUserAccount
+  activeUserAccount,
+  blackListUserAccount,
 } = MainSlice.actions;

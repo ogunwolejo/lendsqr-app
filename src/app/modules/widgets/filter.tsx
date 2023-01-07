@@ -23,7 +23,7 @@ const FilterComponent: React.FC = () => {
           <div className="d-flex flex-column justify-content-end align-items-start">
             <h3 className="filter-label">Organization</h3>
             <select className="filter-select mt-0 px-3 py-2">
-              <option selected>Select</option>
+              <option value="">Select</option>
               <option>Pending</option>
               <option>Active</option>
               <option>Inactive</option>

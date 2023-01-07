@@ -19,11 +19,11 @@ const MainComponent: React.FC<{ title: string; currentUser: any }> = ({
         </div>
         <div className="col-3 col-md-3 col-lg-2 d-flex flex-column justify-content-start gap-0 align-items-start my-1">
           <div className="component-label">Email Address</div>
-          <div className="component-result mt-1">{`${currentUser?.email} `}</div>
+          <div className="component-email text-break mt-1">{`${currentUser?.email} `}</div>
         </div>
         <div className="col-3 col-md-3 col-lg-2 d-flex flex-column justify-content-start gap-0 align-items-start my-1">
-          <div className="component-label">Bvn</div>
-          <div className="component-result mt-1">{`${currentUser?.profile.bvn} `}</div>
+          <div className="component-label ms-1">Bvn</div>
+          <div className="component-result ms-1 mt-1">{`${currentUser?.profile.bvn} `}</div>
         </div>
         <div className="col-3 col-md-3 col-lg-2 d-flex flex-column justify-content-start gap-0 align-items-start my-1">
           <div className="component-label">Gender</div>

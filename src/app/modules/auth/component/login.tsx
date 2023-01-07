@@ -46,6 +46,7 @@ const LoginPage = () => {
       passowrd: state.password,
     };
     dispatchAction(setCurrentUser({ payload: payloadData }));
+    navigate("/users");
   };
 
   return (

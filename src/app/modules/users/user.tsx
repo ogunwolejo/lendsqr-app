@@ -1,5 +1,5 @@
 // this is the page for the various routes
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import CustomizeCard from "../widgets/cards/customize.card";
 import userIcon from "../../assets/card-icons/users.svg";
 import activeUserIcon from "../../assets/card-icons/active-users.svg";
@@ -35,27 +35,26 @@ import viewUserDetailIcon from "../../assets/status-icons/view-detail.svg";
 const tableListValues: Array<number> = [5, 10, 20, 50, 75, 100];
 
 const UserPage: React.FC = () => {
+  //const [loading, setIsLoading] = usestate<boolean>(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const path: string = window.location.pathname;
   const pageName: Array<string> = path.split("/");
 
-  const { tableList, search, mainData, usersWithLoan } = useSelector(
+  const { tableList, mainData, usersWithLoan, search } = useSelector(
     (store: any) => ({
       tableList: store?.data.data,
-      search: store?.data.search,
       mainData: store?.data.mainData,
       usersWithLoan: store?.data.usersWithLoan,
+      search: store?.data.search,
     })
   );
 
+  console.log("search", search);
 
   useEffect(() => {
-
-    if(mainData.appData.length > 0) {
-      //console.log("data exisit", mainData.appData.length);
-      return; 
-    }
+    //setIsLoading(true);
+    if (mainData.appData.length > 0) return;
 
     const makeRequestForData = async () => {
       try {
@@ -74,6 +73,7 @@ const UserPage: React.FC = () => {
 
         //adding data into the local storage
         window.localStorage.setItem("data", JSON.stringify(response.data));
+
         return response;
       } catch (err) {
         return err;
@@ -93,21 +93,49 @@ const UserPage: React.FC = () => {
   };
 
   const blacklistUserHandler = (id: string): void => {
-    dispatch(blackListUserAccount(id))
+    dispatch(blackListUserAccount(id));
   };
 
   const activeUserHandler = (id: string): void => {
     dispatch(activeUserAccount(id));
   };
 
+  let cloneUsersData = mainData.usersData && mainData.usersData;
+
+
+  //searching
+if (search.trim().length > 0) {
+      let searchedData = mainData.usersData &&
+        mainData.usersData.filter((e: USER_DATA) => {
+          if (e.organizationName.toLowerCase().includes(search)) {
+            return true;
+          }
+          if (e.email.toLowerCase().includes(search)) {
+            return true;
+          }
+          if (e.userName.toLowerCase().includes(search)) {
+            return true;
+          }
+          if (e.phoneNumber.toLowerCase().includes(search)) {
+            return true;
+          }
+        });
+        //console.log("f", searchedData);
+        cloneUsersData = searchedData;
+    } else {
+      
+      cloneUsersData = mainData.usersData;
+    }
+
+
+
   //pagination
   const indexOfLastData: number = currentPage * tableList;
   const indexOfFirstData: number = indexOfLastData - tableList;
   const currentTableData: Array<USER_DATA> =
-    mainData.usersData &&
-    mainData.usersData.slice(indexOfFirstData, indexOfLastData);
-  const pageCount = mainData.usersData
-    ? Math.ceil(mainData.usersData.length / tableList)
+    cloneUsersData && cloneUsersData.slice(indexOfFirstData, indexOfLastData);
+  const pageCount = cloneUsersData
+    ? Math.ceil(cloneUsersData.length / tableList)
     : 0;
 
   const changePageHandler = (event: any) => {

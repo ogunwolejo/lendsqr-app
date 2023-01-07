@@ -685,3 +685,12 @@ td {
   color: #545f7d !important;
   @include font-sizes();
 }
+
+.component-email {
+  font-family: "Work Sans" !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #545f7d !important;
+  @include font-sizes();
+}

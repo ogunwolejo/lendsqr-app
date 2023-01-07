@@ -12,7 +12,7 @@ export interface SIDE_BAR_MENU {
 
 export interface MAIN_LIST {
   data: number;
-  search: string;
+  search:string;
   mainData: {
     error: any;
     loading: boolean;
