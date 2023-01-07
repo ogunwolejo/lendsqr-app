@@ -55,27 +55,27 @@ const EducationComponent: React.FC<{ title: string; currentUser: any }> = ({
     <div>
       <div className="card-main-page-header">{title}</div>
       <div className="mt-3 row gx-0 py-1">
-        <div className="col-3  d-flex flex-column justify-content-start gap-0 align-items-start my-1">
+        <div className="col-4 col-md-3  d-flex flex-column justify-content-start gap-0 align-items-start my-1">
           <div className="component-label">level of education</div>
           <div className="component-result mt-1">{`${currentUser?.education.level}`}</div>
         </div>
-        <div className="col-3  d-flex flex-column justify-content-start gap-0 align-items-start my-1">
+        <div className="col-4 col-md-3 d-flex flex-column justify-content-start gap-0 align-items-start my-1">
           <div className="component-label">employment status</div>
           <div className="component-result mt-1">{`${currentUser?.education.employmentStatus} `}</div>
         </div>
-        <div className="col-3  d-flex flex-column justify-content-start gap-0 align-items-start my-1">
+        <div className="col-4 col-md-3 d-flex flex-column justify-content-start gap-0 align-items-start my-1">
           <div className="component-label">sector of employment</div>
           <div className="component-result mt-1">{`${currentUser?.education.sector} `}</div>
         </div>
-        <div className="col-3  d-flex flex-column justify-content-start gap-0 align-items-start my-1">
+        <div className="col-4 col-md-3 d-flex flex-column justify-content-start gap-0 align-items-start my-1">
           <div className="component-label">Duration of employment</div>
           <div className="component-result mt-1">{`${currentUser?.education.duration} `}</div>
         </div>
-        <div className="col-3  d-flex flex-column justify-content-start gap-0 align-items-start my-1">
+        <div className="col-4 col-md-3 d-flex flex-column justify-content-start gap-0 align-items-start my-1">
           <div className="component-label">office email</div>
           <div className="component-result mt-1">{`${currentUser?.education.officeEmail} `}</div>
         </div>
-        <div className="col-3  d-flex flex-column justify-content-start gap-0 align-items-start my-1">
+        <div className="col-4 col-md-3 d-flex flex-column justify-content-start gap-0 align-items-start my-1">
           <div className="component-label">Monthly income</div>
           <div className="component-result mt-1">
             <span>&#8358;</span>{new Intl.NumberFormat("en-US", {
@@ -89,7 +89,7 @@ const EducationComponent: React.FC<{ title: string; currentUser: any }> = ({
             }).format(currentUser?.education.monthlyIncome[1])}
           </div>
         </div>
-        <div className="col-3  d-flex flex-column justify-content-start gap-0 align-items-start my-1">
+        <div className="col-4 col-md-3  d-flex flex-column justify-content-start gap-0 align-items-start my-1">
           <div className="component-label">loan repayment</div>
           <div className="component-result mt-1">
             {new Intl.NumberFormat().format(
