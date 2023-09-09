@@ -31,11 +31,12 @@ import { USER_DATA, USER_STATUS_NUMBER } from "../../../interface";
 import activateUserIcon from "../../assets/status-icons/active-user.svg";
 import blacklistUserIcon from "../../assets/status-icons/black-list.svg";
 import viewUserDetailIcon from "../../assets/status-icons/view-detail.svg";
+import DotLoader from "react-spinners/DotLoader";
 
 const tableListValues: Array<number> = [5, 10, 20, 50, 75, 100];
 
 const UserPage: React.FC = () => {
-  //const [loading, setIsLoading] = usestate<boolean>(false);
+  const [loading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const path: string = window.location.pathname;
@@ -47,7 +48,7 @@ const UserPage: React.FC = () => {
       mainData: store?.data.mainData,
       usersWithLoan: store?.data.usersWithLoan,
       search: store?.data.search,
-      filter:store?.data.filter
+      filter: store?.data.filter
     })
   );
 
@@ -55,7 +56,8 @@ const UserPage: React.FC = () => {
   useEffect(() => {
     //setIsLoading(true);
     if (mainData.appData.length > 0) return;
-
+    
+    setIsLoading(true);
     const makeRequestForData = async () => {
       try {
         const response = await Axios.get(
@@ -77,6 +79,8 @@ const UserPage: React.FC = () => {
         return response;
       } catch (err) {
         return err;
+      } finally {
+        setIsLoading(false)
       }
     };
     makeRequestForData();
@@ -104,42 +108,41 @@ const UserPage: React.FC = () => {
 
 
   //searching
-if (search.trim().length > 0) {
-      let searchedData = mainData.usersData &&
-        mainData.usersData.filter((e: USER_DATA) => {
-          if (e.organizationName.toLowerCase().includes(search)) {
-            return true;
-          }
-          if (e.email.toLowerCase().includes(search)) {
-            return true;
-          }
-          if (e.userName.toLowerCase().includes(search)) {
-            return true;
-          }
-          if (e.phoneNumber.toLowerCase().includes(search)) {
-            return true;
-          }
-        });
-        //console.log("f", searchedData);
-        cloneUsersData = searchedData;
-    } 
+  if (search.trim().length > 0) {
+    let searchedData = mainData.usersData &&
+      mainData.usersData.filter((e: USER_DATA) => {
+        if (e.organizationName.toLowerCase().includes(search)) {
+          return true;
+        }
+        if (e.email.toLowerCase().includes(search)) {
+          return true;
+        }
+        if (e.userName.toLowerCase().includes(search)) {
+          return true;
+        }
+        if (e.phoneNumber.toLowerCase().includes(search)) {
+          return true;
+        }
+      });
+    //console.log("f", searchedData);
+    cloneUsersData = searchedData;
+  }
 
 
-// filtering
-let {organizationName, email, userName, phoneNumber, dateJoined, status} = filter;
+  // filtering
+  let { organizationName, email, userName, phoneNumber, dateJoined, status } = filter;
 
-if(organizationName.trim().length > 0 || email.trim().length > 0 || userName.trim().length > 0  || phoneNumber.trim().length > 0 || dateJoined.trim().length > 0  || status ) 
-{
-  let filteredData = mainData.usersData &&
-        mainData.usersData.filter((e:USER_DATA) => {
-          let date = new Date(e.dateJoined);
-          if(e.organizationName.toLowerCase().includes(organizationName.toLowerCase()) && (e.email.toLowerCase().includes(email.toLowerCase())) && (e.userName.toLowerCase().includes(userName.toLowerCase())) && (e.phoneNumber.toLowerCase().includes(phoneNumber.toLowerCase())) && (e.dateJoined === date.toISOString()) && (e.status === status)) {
-            return true;
-          }
-        })
+  if (organizationName.trim().length > 0 || email.trim().length > 0 || userName.trim().length > 0 || phoneNumber.trim().length > 0 || dateJoined.trim().length > 0 || status) {
+    let filteredData = mainData.usersData &&
+      mainData.usersData.filter((e: USER_DATA) => {
+        let date = new Date(e.dateJoined);
+        if (e.organizationName.toLowerCase().includes(organizationName.toLowerCase()) && (e.email.toLowerCase().includes(email.toLowerCase())) && (e.userName.toLowerCase().includes(userName.toLowerCase())) && (e.phoneNumber.toLowerCase().includes(phoneNumber.toLowerCase())) && (e.dateJoined === date.toISOString()) && (e.status === status)) {
+          return true;
+        }
+      })
 
-         cloneUsersData = filteredData;
-}
+    cloneUsersData = filteredData;
+  }
 
 
 
@@ -188,10 +191,10 @@ if(organizationName.trim().length > 0 || email.trim().length > 0 || userName.tri
           data={102453}
         />
       </div>
-      <div className="mt-2 mt-md-4 card-table col-12">
+      {!loading && <div className="mt-2 mt-md-4 card-table col-12">
         <div className="card-body ps-2 py-3">
           <div className="table-responsive main-table-wrapper">
-            <table className="table">
+          <table className="table">
               <thead className="mt-1 mb-3 ">
                 <tr>
                   <th scope="col" className="table-col">
@@ -322,12 +325,15 @@ if(organizationName.trim().length > 0 || email.trim().length > 0 || userName.tri
                     </tr>
                   );
                 })}
-              </tbody>
+              </tbody>              
             </table>
           </div>
         </div>
-      </div>
-      <div className="table-data-list-and-pagination d-flex flex-row justify-content-between align-items-center mt-3">
+      </div>}
+      {loading && <LoadingComponenet/>}
+      
+      
+      {!loading && <div className="table-data-list-and-pagination d-flex flex-row justify-content-between align-items-center mt-3">
         <div className="table-data-list d-flex flex-row justify-content-start align-items-center gap-2">
           <div className="data-list-text">Showing</div>
           <div className="dropdown-center">
@@ -387,12 +393,19 @@ if(organizationName.trim().length > 0 || email.trim().length > 0 || userName.tri
             activeClassName="active-pagination-page active"
           />
         </div>
-      </div>
+      </div>}
     </div>
   );
 };
 
 export default UserPage;
+
+
+const LoadingComponenet = () => {
+  return (<div className="d-flex flex-column justify-content-center align-items-center col-12 loader">
+  <DotLoader color="rgba(33, 63, 125, 1)" />
+</div>)
+}
 
 const StatusWrapper: React.FC<{ status: number }> = ({ status }) => {
   let backgroundColor = "";
