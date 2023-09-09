@@ -15,6 +15,12 @@ import AlternativePage from "../modules/info/alternative";
 import UserPage from "../modules/users/user";
 
 import { DotLoader } from "react-spinners";
+import Guarantors from "../pages/Guarantor";
+import Loans from "../pages/Loans";
+import Models from "../pages/Models";
+import Savings from "../pages/Savings";
+import LoanRequest from "../pages/LoanRequest";
+import Whitelist from "../pages/WhiteList";
 
 const UserComponent = lazy(() => import("../modules/users/user"));
 const UserDetailsComponent = lazy(
@@ -62,23 +68,13 @@ const Router: React.FC = () => {
                   }
                 />
 
-                <Route path="guarantors" element={<OtherPages />} />
-                <Route path="loans" element={<OtherPages />} />
-                <Route path="decision-model" element={<OtherPages />} />
-                <Route path="savings" element={<OtherPages />} />
-                <Route path="loan-requests" element={<OtherPages />} />
-                <Route path="whitelist" element={<OtherPages />} />
-                <Route path="karma" element={<OtherPages />} />
-
-                <Route path="organization" element={<OtherPages />} />
-                <Route path="loan-product" element={<OtherPages />} />
-                <Route path="saving-product" element={<OtherPages />} />
-                <Route path="fees-charges" element={<OtherPages />} />
-                <Route path="transactions" element={<OtherPages />} />
-                <Route path="services" element={<OtherPages />} />
-                <Route path="account" element={<OtherPages />} />
-                <Route path="settlements" element={<OtherPages />} />
-                <Route path="reports" element={<OtherPages />} />
+                <Route path="guarantors" element={<Guarantors />} />
+                <Route path="loans" element={<Loans />} />
+                <Route path="decision-model" element={<Models />} />
+                <Route path="savings" element={<Savings />} />
+                <Route path="loan-requests" element={<LoanRequest />} />
+                <Route path="whitelist" element={<Whitelist/>}/>
+                <Route path="karma" element={<OtherPages />} />               
 
                 <Route path="preferences" element={<OtherPages />} />
                 <Route path="pricing" element={<OtherPages />} />

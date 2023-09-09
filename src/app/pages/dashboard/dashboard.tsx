@@ -15,22 +15,73 @@ import savingsIcon from "../../assets/icons/savings.svg";
 import loanRequestIcon from "../../assets/icons/loan-request.svg";
 import whitelistIcon from "../../assets/icons/whitelist.svg";
 import karmaIcon from "../../assets/icons/karma.svg";
-
-import savingProductsIcon from "../../assets/icons/saving.svg"
-import feeAndChargesIcon from "../../assets/icons/coins-solid 1.svg";
-import transactionsIcon from "../../assets/icons/transaction.svg";
-import servicesIcon from "../../assets/icons/services.svg";
-import serviceAccountIcon from "../../assets/icons/service-account.svg";
-import settlementsIcon from "../../assets/icons/settlements.svg";
-import reportsIcon from "../../assets/icons/reports.svg"
-
 import preferencesIcon from "../../assets/icons/preference.svg";
 import feesAndPricingIcon from "../../assets/icons/fees-pricing.svg"
 import auditLogsIcons from "../../assets/icons/audit.svg";
+import { useMemo } from "react";
 
 
 const DashboardLayout: React.FC = () => {
-    let currentPath:string = window.location.pathname;
+  let currentPath:string = window.location.pathname;
+  
+  // main sidebar content 
+  const SideBarCustomersSection: Array<SIDE_BAR_MENU> = useMemo(() => [
+    {
+      to: "/users",
+      image: usersIcon,
+      title: "Users",
+    },
+    {
+      to: "/guarantors",
+      image: gurantorIcon,
+      title: "Guarantors",
+    },
+    {
+      to: "/loans",
+      image: loanIcon,
+      title: "Loans",
+    },
+    {
+      to: "/decision-model",
+      image: decisionModeIcon,
+      title: "Decision Models",
+    },
+    {
+      to: "/savings",
+      image: savingsIcon,
+      title: "Savings",
+    },
+    {
+      to: "/loan-requests",
+      image: loanRequestIcon,
+      title: "loan requests",
+    },
+    {
+      to: "/whitelist",
+      image: whitelistIcon,
+      title: "whitelist",
+    }
+  ], []);
+
+  // the sidebar settings
+  const SideBarSettingSection: Array<SIDE_BAR_MENU> = useMemo(() => [
+    {
+      to: "/preferences",
+      image: preferencesIcon,
+      title: "Preferences",
+    },
+    {
+      to: "/pricing",
+      image: feesAndPricingIcon,
+      title: "fees and Pricing",
+    },
+    {
+      to: "/audit",
+      image: auditLogsIcons,
+      title: "Audit Logs",
+    },
+  ], []);
+
   return (
     <>
       <DashboardHeader />
@@ -57,51 +108,31 @@ const DashboardLayout: React.FC = () => {
               ))}
             </ul>
           </div>
+        
+          <div className="mt-md-3 mt-lg-3 mb-1 mt-1">
+              <ListSectionName title="SETTINGS" />
+              <ul className="m-0">
+                {SideBarSettingSection.map((el: SIDE_BAR_MENU, i: number) => (
+                  <li className="" key={i}>
+                    <NavLink
+                      to={el.to}
+                      className={({ isActive }) =>
+                        `${
+                          isActive ? "nav-link-active" : ""
+                        } nav-link  ps-1 ps-md-2 ps-lg-1`
+                      }
+                    >
+                      <SideBabrMenu image={el.image} title={el.title} route={el.to}  key={i} currentPath={currentPath}/>
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div className="mt-md-3 mt-lg-3 mt-1">
-            <ListSectionName title="BUSINESSES" />
-            <ul className="m-0">
-              {SideBarBusinessSection.map((el: SIDE_BAR_MENU, i: number) => (
-                <li className="" key={i}>
-                  <NavLink
-                    to={el.to}
-                    className={({ isActive }) =>
-                      `${
-                        isActive ? "nav-link-active" : ""
-                      } nav-link  ps-1 ps-md-2 ps-lg-1`
-                    }
-                  >
-                    <SideBabrMenu image={el.image} title={el.title} route={el.to}  key={i} currentPath={currentPath}/>
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
           </div>
-
-        <div className="mt-md-3 mt-lg-3 mb-1 mt-1">
-            <ListSectionName title="SETTINGS" />
-            <ul className="m-0">
-              {SideBarSettingSection.map((el: SIDE_BAR_MENU, i: number) => (
-                <li className="" key={i}>
-                  <NavLink
-                    to={el.to}
-                    className={({ isActive }) =>
-                      `${
-                        isActive ? "nav-link-active" : ""
-                      } nav-link  ps-1 ps-md-2 ps-lg-1`
-                    }
-                  >
-                    <SideBabrMenu image={el.image} title={el.title} route={el.to}  key={i} currentPath={currentPath}/>
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
+          <div className="side_bar_content">
+            <Outlet />
           </div>
-
-        </div>
-        <div className="side_bar_content">
-          <Outlet />
-        </div>
       </div>
     </>
   );
@@ -133,113 +164,3 @@ const ListSectionName: React.FC<{ title: string; className?: string }> = ({
   </div>
 );
 
-const SideBarCustomersSection: Array<SIDE_BAR_MENU> = [
-  {
-    to: "/users",
-    image: usersIcon,
-    title: "Users",
-  },
-  {
-    to: "/guarantors",
-    image: gurantorIcon,
-    title: "Guarantors",
-  },
-  {
-    to: "/loans",
-    image: loanIcon,
-    title: "Loans",
-  },
-  {
-    to: "/decision-model",
-    image: decisionModeIcon,
-    title: "Decision Models",
-  },
-  {
-    to: "/savings",
-    image: savingsIcon,
-    title: "Savings",
-  },
-  {
-    to: "/loan-requests",
-    image: loanRequestIcon,
-    title: "loan requests",
-  },
-  {
-    to: "/whitelist",
-    image: whitelistIcon,
-    title: "whitelist",
-  },
-  {
-    to: "/karma",
-    image: karmaIcon,
-    title: "karma",
-  },
-];
-
-const SideBarBusinessSection: Array<SIDE_BAR_MENU> = [
-  {
-    to: "/organization",
-    image: brieftCase,
-    title: "organization",
-  },
-  {
-    to: "/loan-product",
-    image: loanRequestIcon,
-    title: "loan products",
-  },
-  {
-    to: "/saving-product",
-    image: savingProductsIcon,
-    title: "savings products",
-  },
-  {
-    to: "/fees-charges",
-    image: feeAndChargesIcon,
-    title: "fees and charges",
-  },
-  {
-    to: "/transactions",
-    image: transactionsIcon,
-    title: "Transactions",
-  },
-  {
-    to: "/services",
-    image: servicesIcon,
-    title: "Services",
-  },
-  {
-    to: "/account",
-    image: serviceAccountIcon,
-    title: "Service Account",
-  },
-  {
-    to: "/settlements",
-    image: settlementsIcon,
-    title: "settlements",
-  },
-  {
-    to: "/reports",
-    image: reportsIcon,
-    title: "reports",
-  },
-   
-];
-
-
-const SideBarSettingSection: Array<SIDE_BAR_MENU> = [
-  {
-    to: "/preferences",
-    image: preferencesIcon,
-    title: "Preferences",
-  },
-  {
-    to: "/pricing",
-    image: feesAndPricingIcon,
-    title: "fees and Pricing",
-  },
-  {
-    to: "/audit",
-    image: auditLogsIcons,
-    title: "Audit Logs",
-  },
-];
